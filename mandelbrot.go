@@ -41,7 +41,7 @@ func main() {
 				log.Fatal(err)
 			}
 			log.Print("Rendering scene: " + c.Args().Get(0))
-			drawMandelbrot(scene.Params)
+			drawComplexSet(scene.Params)
 			return nil
 		},
 	}
@@ -83,7 +83,7 @@ func initOutFolder() {
 	}
 }
 
-func drawMandelbrot(p SetParams) {
+func drawComplexSet(p SetParams) {
 	spanX := p.IntervalX[1] - p.IntervalX[0]
 	spanY := p.IntervalY[1] - p.IntervalY[0]
 	setImage := image.NewRGBA(image.Rect(0, 0, int(spanX/p.Step), int(spanY/p.Step)))
@@ -92,19 +92,21 @@ func drawMandelbrot(p SetParams) {
 	for y := p.IntervalY[0]; y < p.IntervalY[1]; y += p.Step {
 		for x := p.IntervalX[0]; x < p.IntervalX[1]; x += p.Step {
 			iterations := mandelbrot(complex128(complex(x, y)), p.Iter)
-			setImage.Set(j, i, color.RGBA{
-				R: uint8(iterations * 10),
-				G: 0,
-				B: 0,
+			//color := colorful.Hsl(iterations, 0, (50 - iterations) * 2)
+			c := color.RGBA{
+				R: 255 - uint8(iterations*5),
+				G: 255 - uint8(iterations*5),
+				B: 255 - uint8(iterations*5),
 				A: 255,
-			})
+			}
+			setImage.Set(j, i, c)
 			j++
 		}
 		i++
 		j = 0
 	}
 
-	file, err := os.Create(outDir + "/out.png")
+	file, err := os.Create(outDir + "/black&white.png")
 	if err != nil {
 		log.Fatal("Could not create image file")
 	}
@@ -116,11 +118,11 @@ func drawMandelbrot(p SetParams) {
 	}
 }
 
-func mandelbrot(c complex128, maxIter int) int {
-	z, iter := c, 0
+func mandelbrot(p complex128, maxIter int) float64 {
+	z, iter := p, 0
 	for cmplx.Abs(z) < 2 && iter < maxIter {
-		z = cmplx.Pow(z, 2) + c
+		z = cmplx.Pow(z, 2) + p
 		iter++
 	}
-	return iter
+	return float64(iter)
 }

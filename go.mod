@@ -1,4 +1,4 @@
-module github.com/bartolomej/mandlebrot
+module github.com/bartolomej/brot
 
 go 1.14
 

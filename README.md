@@ -1,8 +1,6 @@
-# Brot
+# Brot 🖌
 
 A tool to produce aesthetically pleasing images of mandelbrot and julia sets from the command line.
-
-![Black and white set](./images/black&white.png)
 
 ## Setup
 
@@ -84,3 +82,14 @@ Image outputs are stored in `/out` folder.
 
 ## Cool resources
 - [Mandelbrot set analyzed](https://www.youtube.com/watch?v=7MotVcGvFMg&t=379s)
+- [Smooth shading implementation](http://linas.org/art-gallery/escape/smooth.html)
+
+## Example images
+
+![Black and white set](./images/black&white.png)
+
+![Black and white set](./images/smooth.png)
+
+![Black and white set](./images/jul1.png)
+
+![Black and white set](./images/julia4.png)

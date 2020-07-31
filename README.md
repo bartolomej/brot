@@ -1,6 +1,6 @@
 # Brot
 
-A tool to produce aesthetically pleasing images of mandelbrot set from the command line.
+A tool to produce aesthetically pleasing images of mandelbrot and julia sets from the command line.
 
 ![Black and white set](./images/black&white.png)
 
@@ -25,11 +25,6 @@ Run go program with:
 $ go run main.go
 ```
 
-...or build executable binaries to `/bin` directory:
-```shell script
-$ sh build.sh
-```
-
 You can also install the program to use it as a cli tool from anywhere in the system by running:
 ```shell script
 $ go install
@@ -47,7 +42,8 @@ Create `config.json` file for custom parameters. Example syntax:
 {
   "scenes": [
     {
-      "name": "Mandelbrot",
+      "name": "mdb1",
+      "type": "mandelbrot",
       "params": {
         "intervalX": [-2.1, 0.7],
         "intervalY": [-1.2, 1.2],
@@ -56,6 +52,22 @@ Create `config.json` file for custom parameters. Example syntax:
         "hue": {
           "start": 0,
           "factor": 10
+        }
+      }
+    },
+    {
+      "name": "jul1",
+      "type": "julia",
+      "params": {
+        "intervalX": [-2, 2],
+        "intervalY": [-1.5, 1.5],
+        "step": 0.01,
+        "iter": 15,
+        "exp": [2, 0],
+        "c": [-0.8,0],
+        "hue": {
+          "start": 170,
+          "factor": 30
         }
       }
     }
@@ -69,3 +81,6 @@ $ brot <scene-name>
 ```
 
 Image outputs are stored in `/out` folder.
+
+## Cool resources
+- [Mandelbrot set analyzed](https://www.youtube.com/watch?v=7MotVcGvFMg&t=379s)
